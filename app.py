@@ -1,10 +1,24 @@
-from flask import Flask
-from flask import Flask, render_template
 from flask import Flask, render_template, redirect, url_for, request
 import os
 import uuid
 
+# ✨ OpenTelemetry Imports
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry import trace
+
+# ✨ إعداد التتبع
+trace.set_tracer_provider(TracerProvider())
+otlp_exporter = OTLPSpanExporter(
+    endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318/v1/traces"),
+    insecure=True
+)
+trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(otlp_exporter))
+
 app = Flask(__name__)
+FlaskInstrumentor().instrument_app(app)  # ✨ ربط Flask مع التتبع
 
 @app.route('/')
 def home():
