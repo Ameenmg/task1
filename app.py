@@ -24,7 +24,8 @@ FlaskInstrumentor().instrument_app(app)  # ✨ ربط Flask مع التتبع
 def home():
     hostname = os.uname()[1]
     randomid = uuid.uuid4()
-    return 'Container Hostname: ' + hostname + ' , ' + 'UUID: ' + str(randomid) + '\n ' + 'Ameen migdadi'
+    my_name = os.getenv("MY_NAME")
+    return 'Container Hostname: ' + hostname + ' , ' + 'UUID: ' + str(randomid) + '\n ' + 'Name: '+ my_name
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
