@@ -11,7 +11,7 @@ image:
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v2"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -125,7 +125,7 @@ affinity: {}
 
 env:
   - name: OTEL_EXPORTER_OTLP_ENDPOINT
-    value: http://10.105.94.179:4317
+    value: http://10.99.74.220:4318
   - name: OTEL_SERVICE_NAME
     value: flask-demo-app
   - name: OTEL_EXPORTER_OTLP_PROTOCOL

@@ -12,7 +12,7 @@ from opentelemetry import trace
 # ✨ إعداد التتبع
 trace.set_tracer_provider(TracerProvider())
 otlp_exporter = OTLPSpanExporter(
-    endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318/v1/traces"),
+    endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://10.99.74.220:4318"),
     insecure=True
 )
 trace.get_tracer_provider().add_span_processor(BatchSpanProcessor(otlp_exporter))
@@ -24,7 +24,7 @@ FlaskInstrumentor().instrument_app(app)  # ✨ ربط Flask مع التتبع
 def home():
     hostname = os.uname()[1]
     randomid = uuid.uuid4()
-    return 'Container Hostname: ' + hostname + ' , ' + 'UUID: ' + str(randomid) + '\n'
+    return 'Container Hostname: ' + hostname + ' , ' + 'UUID: ' + str(randomid) + '\n ' + 'Ameen migdadi'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
